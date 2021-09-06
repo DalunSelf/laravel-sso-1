@@ -24,9 +24,9 @@ return [
      */
 
     'usersModel' => \App\User::class,
-    'brokersModel' => Zefy\LaravelSSO\Models\Broker::class,
+    'brokersModel' => Iffutsius\LaravelSSO\Models\Broker::class,
 
-    // Table used in Zefy\LaravelSSO\Models\Broker model
+    // Table used in Iffutsius\LaravelSSO\Models\Broker model
     'brokersTable' => 'brokers',
 
     // Logged in user fields sent to brokers.

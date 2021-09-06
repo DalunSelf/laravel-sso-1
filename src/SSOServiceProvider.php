@@ -1,9 +1,9 @@
 <?php
 
-namespace Zefy\LaravelSSO;
+namespace Iffutsius\LaravelSSO;
 
 use Illuminate\Support\ServiceProvider;
-use Zefy\LaravelSSO\Commands;
+use Iffutsius\LaravelSSO\Commands;
 
 class SSOServiceProvider extends ServiceProvider
 {
@@ -43,7 +43,7 @@ class SSOServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Zefy\LaravelSSO\Controllers\ServerController');
+        $this->app->make('Iffutsius\LaravelSSO\Controllers\ServerController');
     }
 
     /**

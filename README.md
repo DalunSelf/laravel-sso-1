@@ -11,10 +11,12 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 
-This package based on [Simple PHP SSO skeleton](https://github.com/zefy/php-simple-sso) package and made suitable for Laravel framework.
+This package is based on [Simple PHP SSO skeleton](https://github.com/zefy/php-simple-sso) package and made suitable for Laravel framework.
+This package forks [Zefy's laravel-sso](https://github.com/zefy/laravel-sso) to add support for newer laravel versions.
+
 ### Requirements
-* Laravel 5.5+
-* PHP 7.1+
+* Laravel 8.0+
+* PHP 7.4+
 
 ### Words meanings
 * ***SSO*** - Single Sign-On.
@@ -28,20 +30,26 @@ Client visits Broker and unique token is generated. When new token is generated 
 # Installation
 ### Server
 Install this package using composer.
+First add this line to composer.json
+
+    "repositories": [
+        {"type": "vcs", "url": "git@github.com:iffutsius/laravel-sso.git"}
+    ],
+Then you can use
 ```shell
-$ composer require zefy/laravel-sso
+$ composer require iffutsius/laravel-sso
 ```
 
 
 Copy config file to Laravel project `config/` folder.
 ```shell
-$ php artisan vendor:publish --provider="Zefy\LaravelSSO\SSOServiceProvider"
+$ php artisan vendor:publish --provider="Iffutsius\LaravelSSO\SSOServiceProvider"
 ```
 
 
 Create table where all brokers will be saved.
 ```shell
-$ php artisan migrate --path=vendor/zefy/laravel-sso/database/migrations
+$ php artisan migrate --path=vendor/iffutsius/laravel-sso/database/migrations
 ```
 
 
@@ -65,14 +73,21 @@ $ php artisan sso:broker:create {name}
 
 ### Broker
 Install this package using composer.
+First add this line to composer.json
+
+    "repositories": [
+        {"type": "vcs", "url": "git@github.com:iffutsius/laravel-sso.git"}
+    ],
+
+Then you can use
 ```shell
-$ composer require zefy/laravel-sso
+$ composer require iffutsius/laravel-sso
 ```
 
 
 Copy config file to Laravel project `config/` folder.
 ```shell
-$ php artisan vendor:publish --provider="Zefy\LaravelSSO\SSOServiceProvider"
+$ php artisan vendor:publish --provider="Iffutsius\LaravelSSO\SSOServiceProvider"
 ```
 
 
@@ -91,12 +106,12 @@ SSO_BROKER_SECRET=
 
 
 
-Edit your `app/Http/Kernel.php` by adding `\Zefy\LaravelSSO\Middleware\SSOAutoLogin::class` middleware to `web` middleware group. It should look like this:
+Edit your `app/Http/Kernel.php` by adding `\Iffutsius\LaravelSSO\Middleware\SSOAutoLogin::class` middleware to `web` middleware group. It should look like this:
 ```php
 protected $middlewareGroups = [
         'web' => [
             ...
-            \Zefy\LaravelSSO\Middleware\SSOAutoLogin::class,
+            \Iffutsius\LaravelSSO\Middleware\SSOAutoLogin::class,
         ],
 
         'api' => [
@@ -111,7 +126,7 @@ Last but not least, you need to edit `app/Http/Controllers/Auth/LoginController.
 ```php
 protected function attemptLogin(Request $request)
 {
-    $broker = new \Zefy\LaravelSSO\LaravelSSOBroker;
+    $broker = new \Iffutsius\LaravelSSO\LaravelSSOBroker;
     
     $credentials = $this->credentials($request);
     return $broker->login($credentials[$this->username()], $credentials['password']);
@@ -119,7 +134,7 @@ protected function attemptLogin(Request $request)
 
 public function logout(Request $request)
 {
-    $broker = new \Zefy\LaravelSSO\LaravelSSOBroker;
+    $broker = new \Iffutsius\LaravelSSO\LaravelSSOBroker;
     
     $broker->logout();
     
