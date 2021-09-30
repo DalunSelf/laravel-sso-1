@@ -11,6 +11,20 @@ use Iffutsius\LaravelSSO\Resources\UserResource;
 
 class LaravelSSOServer extends SSOServer
 {
+
+    /**
+     * @var string
+     */
+    protected $usernameField;
+
+    /**
+     * LaravelSSOServer constructor.
+     */
+    public function __construct()
+    {
+        $this->usernameField = config('laravel-sso.usernameField', 'username');
+    }
+
     /**
      * Redirect to provided URL with query string.
      *
@@ -66,7 +80,7 @@ class LaravelSSOServer extends SSOServer
      */
     protected function authenticate(string $username, string $password)
     {
-        if (!Auth::attempt(['username' => $username, 'password' => $password])) {
+        if (!Auth::attempt([$this->usernameField => $username, 'password' => $password])) {
             return false;
         }
 
@@ -107,7 +121,7 @@ class LaravelSSOServer extends SSOServer
     protected function getUserInfo(string $username)
     {
         try {
-            $user = config('laravel-sso.usersModel')::where('username', $username)->firstOrFail();
+            $user = config('laravel-sso.usersModel')::where($this->usernameField, $username)->firstOrFail();
         } catch (ModelNotFoundException $e) {
             return null;
         }

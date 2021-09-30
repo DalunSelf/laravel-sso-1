@@ -23,7 +23,9 @@ return [
      |
      */
 
-    'usersModel' => \App\User::class,
+    'usersModel' => \App\Models\User::class,
+    'usernameField' => 'username',
+
     'brokersModel' => Iffutsius\LaravelSSO\Models\Broker::class,
 
     // Table used in Iffutsius\LaravelSSO\Models\Broker model

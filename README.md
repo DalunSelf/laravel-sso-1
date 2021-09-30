@@ -16,7 +16,7 @@ This package forks [Zefy's laravel-sso](https://github.com/zefy/laravel-sso) to 
 
 ### Requirements
 * Laravel 8.0+
-* PHP 7.4+
+* PHP 7.3+
 
 ### Words meanings
 * ***SSO*** - Single Sign-On.
